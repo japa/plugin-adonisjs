@@ -8,8 +8,8 @@ jobs:
     strategy:
       matrix:
         node-version:
-          - 16.15.1
           - 18.x
+          - 19.x
     steps:
       - uses: actions/checkout@v2
       - name: Use Node.js ${{ matrix.node-version }}
@@ -18,6 +18,8 @@ jobs:
           node-version: ${{ matrix.node-version }}
       - name: Install
         run: npm install
+      - name: Install Playwright Browsers
+        run: npx playwright install --with-deps
       - name: Run tests
         run: npm test
   windows:
@@ -25,8 +27,8 @@ jobs:
     strategy:
       matrix:
         node-version:
-          - 16.15.1
           - 18.x
+          - 19.x
     steps:
       - uses: actions/checkout@v2
       - name: Use Node.js ${{ matrix.node-version }}
@@ -35,5 +37,7 @@ jobs:
           node-version: ${{ matrix.node-version }}
       - name: Install
         run: npm install
+      - name: Install Playwright Browsers
+        run: npx playwright install --with-deps
       - name: Run tests
         run: npm test
