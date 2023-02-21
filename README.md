@@ -9,7 +9,7 @@
 
 </div>
 
-[gh-workflow-image]: https://img.shields.io/github/workflow/status/japa/plugin-adonisjs/test?style=for-the-badge
+[gh-workflow-image]: https://img.shields.io/github/actions/workflow/status/japa/plugin-adonisjs/test.yml?style=for-the-badge
 [gh-workflow-url]: https://github.com/japa/plugin-adonisjs/actions/workflows/test.yml "Github action"
 
 [npm-image]: https://img.shields.io/npm/v/@japa/plugin-adonisjs/latest.svg?style=for-the-badge&logo=npm
