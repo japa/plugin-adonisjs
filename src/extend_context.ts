@@ -7,6 +7,7 @@
  * file that was distributed with this source code.
  */
 
+import './extended_types.js'
 import { TestContext } from '@japa/runner'
 import type { Router } from '@adonisjs/core/http'
 import type { MakeUrlOptions } from '@adonisjs/core/types/http'

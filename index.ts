@@ -7,6 +7,7 @@
  * file that was distributed with this source code.
  */
 
+import './src/extended_types.js'
 import { PluginFn } from '@japa/runner'
 import { CookieClient } from '@adonisjs/core/http'
 import { ApplicationService } from '@adonisjs/core/types'

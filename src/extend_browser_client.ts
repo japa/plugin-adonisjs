@@ -7,6 +7,7 @@
  * file that was distributed with this source code.
  */
 
+import './extended_types.js'
 import { CookieOptions } from 'playwright'
 import { Decorator } from '@japa/browser-client'
 import { CookieClient } from '@adonisjs/core/http'

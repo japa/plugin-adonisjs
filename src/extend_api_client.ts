@@ -7,6 +7,7 @@
  * file that was distributed with this source code.
  */
 
+import './extended_types.js'
 import { CookieClient } from '@adonisjs/core/http'
 import { ApiClient, ApiRequest } from '@japa/api-client'
 
