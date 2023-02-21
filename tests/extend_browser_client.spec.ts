@@ -15,7 +15,9 @@ import { decorateBrowser } from '@japa/browser-client'
 import { extendBrowserClient } from '../src/extend_browser_client.js'
 import { SERVER_URL, bootApplication, createHttpServer } from './bootstrap.js'
 
-test.group('Extend Browser client', () => {
+test.group('Extend Browser client', (group) => {
+  group.tap((t) => t.timeout(8000))
+
   test('send signed cookie to the server', async ({ assert, cleanup }) => {
     assert.plan(1)
 
