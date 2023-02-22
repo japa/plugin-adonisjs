@@ -9,8 +9,8 @@
 
 import './extended_types.js'
 import { CookieOptions } from 'playwright'
-import { Decorator } from '@japa/browser-client'
 import { CookieClient } from '@adonisjs/core/http'
+import { Decorator, decoratorsCollection } from '@japa/browser-client'
 
 /**
  * Normalizes the cookies options to use the default domain
@@ -38,6 +38,9 @@ function tryDecode(value: string) {
   }
 }
 
+/**
+ * Registers custom decorators with the browser client
+ */
 export function extendBrowserClient(cookieClient: CookieClient, baseURL?: string) {
   /**
    * Compute base url from HOST and PORT variables (if exists)
@@ -52,7 +55,10 @@ export function extendBrowserClient(cookieClient: CookieClient, baseURL?: string
 
   const cookiesDomain = baseURL ? new URL(baseURL).host : undefined
 
-  return {
+  /**
+   * Adding cookie methods
+   */
+  decoratorsCollection.register({
     context(context) {
       /**
        * Get a signed cookie from the browser context.
@@ -151,5 +157,5 @@ export function extendBrowserClient(cookieClient: CookieClient, baseURL?: string
         }
       }
     },
-  } satisfies Decorator
+  } satisfies Decorator)
 }
