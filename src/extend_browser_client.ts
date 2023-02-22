@@ -12,6 +12,8 @@ import { CookieOptions } from 'playwright'
 import { CookieClient } from '@adonisjs/core/http'
 import { Decorator, decoratorsCollection } from '@japa/browser-client'
 
+import debug from './debug.js'
+
 /**
  * Normalizes the cookies options to use the default domain
  * and path
@@ -42,6 +44,8 @@ function tryDecode(value: string) {
  * Registers custom decorators with the browser client
  */
 export function extendBrowserClient(cookieClient: CookieClient, baseURL?: string) {
+  debug('extending @japa/browser-client with adonisjs specific methods')
+
   /**
    * Compute base url from HOST and PORT variables (if exists)
    */

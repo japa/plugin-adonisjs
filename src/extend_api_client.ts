@@ -11,11 +11,15 @@ import './extended_types.js'
 import { CookieClient } from '@adonisjs/core/http'
 import { ApiClient, ApiRequest } from '@japa/api-client'
 
+import debug from './debug.js'
+
 /**
  * Extending the "@japa/api-client" plugin with custom methods to
  * set cookies, session, csrf token and authenticated user.
  */
 export function extendApiClient(cookieClient: CookieClient) {
+  debug('extending @japa/api-client with adonisjs specific methods')
+
   /**
    * Serializer for parsing response cookies
    */

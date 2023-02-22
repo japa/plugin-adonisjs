@@ -12,7 +12,11 @@ import { TestContext } from '@japa/runner'
 import type { Router } from '@adonisjs/core/http'
 import type { MakeUrlOptions } from '@adonisjs/core/types/http'
 
+import debug from './debug.js'
+
 export function extendContext(router: Router) {
+  debug('extending japa context with adonisjs specific methods')
+
   TestContext.macro(
     'route',
     function (
