@@ -15,7 +15,7 @@
   "type": "module",
   "scripts": {
     "pretest": "npm run lint",
-    "test": "cros-env NODE_DEBUG=japa:plugin-adonisjs c8 npm run vscode:test",
+    "test": "cross-env NODE_DEBUG=japa:plugin-adonisjs c8 npm run vscode:test",
     "clean": "del-cli build",
     "compile": "npm run lint && npm run clean && tsc",
     "build": "npm run compile",
