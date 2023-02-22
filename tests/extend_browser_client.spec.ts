@@ -10,7 +10,7 @@
 import { test } from '@japa/runner'
 import { chromium } from 'playwright'
 import { CookieClient } from '@adonisjs/core/http'
-import { decorateBrowser } from '@japa/browser-client'
+import { decorateBrowser, decoratorsCollection } from '@japa/browser-client'
 
 import { extendBrowserClient } from '../src/extend_browser_client.js'
 import { SERVER_URL, bootApplication, createHttpServer } from './bootstrap.js'
@@ -29,8 +29,8 @@ test.group('Extend Browser client', (group) => {
     const router = await app.container.make('router')
     const server = await app.container.make('server')
     const encryption = await app.container.make('encryption')
-    const decroators = [extendBrowserClient(new CookieClient(encryption), SERVER_URL)]
-    decorateBrowser(browser, decroators)
+    extendBrowserClient(new CookieClient(encryption), SERVER_URL)
+    decorateBrowser(browser, decoratorsCollection.toJSON())
 
     router.get('/', ({ request }) => {
       return `<html>
@@ -72,8 +72,8 @@ test.group('Extend Browser client', (group) => {
     const router = await app.container.make('router')
     const server = await app.container.make('server')
     const encryption = await app.container.make('encryption')
-    const decroators = [extendBrowserClient(new CookieClient(encryption), SERVER_URL)]
-    decorateBrowser(browser, decroators)
+    extendBrowserClient(new CookieClient(encryption), SERVER_URL)
+    decorateBrowser(browser, decoratorsCollection.toJSON())
 
     router.get('/', ({ request }) => {
       return `<html>
@@ -115,8 +115,8 @@ test.group('Extend Browser client', (group) => {
     const router = await app.container.make('router')
     const server = await app.container.make('server')
     const encryption = await app.container.make('encryption')
-    const decroators = [extendBrowserClient(new CookieClient(encryption), SERVER_URL)]
-    decorateBrowser(browser, decroators)
+    extendBrowserClient(new CookieClient(encryption), SERVER_URL)
+    decorateBrowser(browser, decoratorsCollection.toJSON())
 
     router.get('/', ({ request }) => {
       return `<html>
@@ -156,8 +156,8 @@ test.group('Extend Browser client', (group) => {
     const router = await app.container.make('router')
     const server = await app.container.make('server')
     const encryption = await app.container.make('encryption')
-    const decroators = [extendBrowserClient(new CookieClient(encryption), SERVER_URL)]
-    decorateBrowser(browser, decroators)
+    extendBrowserClient(new CookieClient(encryption), SERVER_URL)
+    decorateBrowser(browser, decoratorsCollection.toJSON())
 
     router.get('/', ({ response }) => {
       response.cookie('username', 'virk')
@@ -196,8 +196,8 @@ test.group('Extend Browser client', (group) => {
     const router = await app.container.make('router')
     const server = await app.container.make('server')
     const encryption = await app.container.make('encryption')
-    const decroators = [extendBrowserClient(new CookieClient(encryption), SERVER_URL)]
-    decorateBrowser(browser, decroators)
+    extendBrowserClient(new CookieClient(encryption), SERVER_URL)
+    decorateBrowser(browser, decoratorsCollection.toJSON())
 
     router.get('/', ({ response }) => {
       response.cookie('username', 'virk')
