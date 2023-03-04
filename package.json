@@ -38,7 +38,7 @@
   "author": "virk,japa",
   "license": "MIT",
   "devDependencies": {
-    "@adonisjs/core": "^6.1.4-0",
+    "@adonisjs/core": "^6.1.5-0",
     "@commitlint/cli": "^17.4.4",
     "@commitlint/config-conventional": "^17.4.4",
     "@japa/api-client": "^1.4.4",
@@ -48,7 +48,7 @@
     "@japa/runner": "^2.5.1",
     "@japa/spec-reporter": "^1.1.12",
     "@swc/core": "^1.3.37",
-    "@types/node": "^18.14.5",
+    "@types/node": "^18.14.6",
     "c8": "^7.13.0",
     "cross-env": "^7.0.3",
     "del-cli": "^5.0.0",
@@ -66,7 +66,7 @@
     "typescript": "^4.7.3"
   },
   "peerDependencies": {
-    "@adonisjs/core": "^6.1.4-0",
+    "@adonisjs/core": "^6.1.5-0",
     "@japa/api-client": "^1.4.4",
     "@japa/browser-client": "^1.2.0",
     "@japa/runner": "^2.5.1",
