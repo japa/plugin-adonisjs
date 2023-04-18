@@ -45,6 +45,36 @@ test.group('Extend ApiClient', () => {
     assert.equal(response.status(), 200)
   })
 
+  test('send multiple signed cookies to the server', async ({ assert, cleanup }) => {
+    assert.plan(2)
+
+    /**
+     * Setup
+     */
+    const app = await bootApplication('web')
+    const encryption = await app.container.make('encryption')
+    const router = await app.container.make('router')
+    const server = await app.container.make('server')
+    router.get('/', ({ request }) => {
+      assert.equal(request.cookie('username'), 'virk')
+    })
+    await server.boot()
+    extendApiClient(new CookieClient(encryption))
+
+    /**
+     * Cleanup
+     */
+    const closeServer = await createHttpServer(server.handle.bind(server))
+    cleanup(() => closeServer())
+
+    /**
+     * Test
+     */
+    const client = new ApiClient(SERVER_URL)
+    const response = await client.get('/').cookies({ username: 'virk' })
+    assert.equal(response.status(), 200)
+  })
+
   test('send encrypted cookie to the server', async ({ assert, cleanup }) => {
     assert.plan(2)
 
