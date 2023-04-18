@@ -1,5 +1,4 @@
-@japa/plugin-adonisjs
-> Japa plugin for AdonisJS
+# @japa/plugin-adonisjs
 
 <br />
 
