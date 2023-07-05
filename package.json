@@ -11,6 +11,9 @@
   "exports": {
     ".": "./build/index.js"
   },
+  "engines": {
+    "node": ">=18.16.0"
+  },
   "type": "module",
   "scripts": {
     "pretest": "npm run lint",
