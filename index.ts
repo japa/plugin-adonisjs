@@ -1,14 +1,14 @@
 /*
  * @japa/plugin-adonisjs
  *
- * (c) Japa.dev
+ * (c) Japa
  *
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
 
-import './src/extended_types.js'
-import { PluginFn } from '@japa/runner'
+import './src/types/extended.js'
+import { PluginFn } from '@japa/runner/types'
 import { CookieClient } from '@adonisjs/core/http'
 import { ApplicationService } from '@adonisjs/core/types'
 import { extendContext } from './src/extend_context.js'

@@ -1,7 +1,7 @@
 /*
  * @japa/plugin-adonisjs
  *
- * (c) Japa.dev
+ * (c) Japa
  *
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
@@ -10,7 +10,7 @@
 import { Cookie } from 'playwright'
 import type { MakeUrlOptions } from '@adonisjs/core/types/http'
 
-declare module '@japa/runner' {
+declare module '@japa/runner/core' {
   export interface TestContext {
     /**
      * Create URL for a pre-registered route

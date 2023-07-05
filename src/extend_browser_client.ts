@@ -1,16 +1,17 @@
 /*
  * @japa/plugin-adonisjs
  *
- * (c) AdonisJS
+ * (c) Japa
  *
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
 
-import './extended_types.js'
+import './types/extended.js'
 import { CookieOptions } from 'playwright'
 import { CookieClient } from '@adonisjs/core/http'
-import { Decorator, decoratorsCollection } from '@japa/browser-client'
+import { decoratorsCollection } from '@japa/browser-client'
+import type { Decorator } from '@japa/browser-client/types'
 
 import debug from './debug.js'
 

@@ -1,13 +1,13 @@
 /*
  * @japa/plugin-adonisjs
  *
- * (c) Japa.dev
+ * (c) Japa
  *
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
 
-import './extended_types.js'
+import './types/extended.js'
 import { CookieClient } from '@adonisjs/core/http'
 import { ApiClient, ApiRequest } from '@japa/api-client'
 
@@ -44,7 +44,7 @@ export function extendApiClient(cookieClient: CookieClient) {
   /**
    * Send a signed cookie during the API request
    */
-  ApiRequest.macro('withCookie', function (key: string, value: any) {
+  ApiRequest.macro('withCookie', function (this: ApiRequest, key: string, value: any) {
     const signedValue = cookieClient.sign(key, value)
     if (signedValue) {
       this.cookiesJar[key] = { name: key, value: signedValue }
@@ -52,14 +52,14 @@ export function extendApiClient(cookieClient: CookieClient) {
 
     return this
   })
-  ApiRequest.macro('cookie', function (key: string, value: any) {
+  ApiRequest.macro('cookie', function (this: ApiRequest, key: string, value: any) {
     return this.withCookie(key, value)
   })
 
   /**
    * Send an encrypted cookie during the API request
    */
-  ApiRequest.macro('withEncryptedCookie', function (key: string, value: any) {
+  ApiRequest.macro('withEncryptedCookie', function (this: ApiRequest, key: string, value: any) {
     const encryptedValue = cookieClient.encrypt(key, value)
     if (encryptedValue) {
       this.cookiesJar[key] = { name: key, value: encryptedValue }
@@ -68,14 +68,14 @@ export function extendApiClient(cookieClient: CookieClient) {
     return this
   })
 
-  ApiRequest.macro('encryptedCookie', function (key: string, value: any) {
+  ApiRequest.macro('encryptedCookie', function (this: ApiRequest, key: string, value: any) {
     return this.withEncryptedCookie(key, value)
   })
 
   /**
    * Send an encrypted cookie during the API request
    */
-  ApiRequest.macro('withPlainCookie', function (key: string, value: any) {
+  ApiRequest.macro('withPlainCookie', function (this: ApiRequest, key: string, value: any) {
     const plainValue = cookieClient.encode(key, value)
     if (plainValue) {
       this.cookiesJar[key] = { name: key, value: plainValue }
@@ -84,7 +84,7 @@ export function extendApiClient(cookieClient: CookieClient) {
     return this
   })
 
-  ApiRequest.macro('plainCookie', function (key: string, value: any) {
+  ApiRequest.macro('plainCookie', function (this: ApiRequest, key: string, value: any) {
     return this.withPlainCookie(key, value)
   })
 }

@@ -1,21 +1,18 @@
 /*
  * @japa/plugin-adonisjs
  *
- * (c) Japa.dev
+ * (c) Japa
  *
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
 
 import getPort from 'get-port'
+import { getActiveTest } from '@japa/runner'
 import { IgnitorFactory } from '@adonisjs/core/factories'
 import { AppEnvironments } from '@adonisjs/core/types/app'
 import type { ApplicationService } from '@adonisjs/core/types'
 import { IncomingMessage, ServerResponse, createServer } from 'node:http'
-
-export const SERVER_HOST = '127.0.0.1'
-export const SERVER_PORT = await getPort({ port: 3000 })
-export const SERVER_URL = `http://${SERVER_HOST}:${SERVER_PORT}`
 
 /**
  * Create a HTTP server to handle request
@@ -24,17 +21,19 @@ export async function createHttpServer(
   handler: (req: IncomingMessage, res: ServerResponse) => any
 ) {
   const server = createServer(handler)
+  const host = '127.0.0.1'
+  const port = await getPort({ port: 3000 })
+  const url = `http://${host}:${port}`
+
   await new Promise<void>((resolve) => {
-    server.listen(SERVER_PORT, SERVER_HOST, () => {
+    server.listen(port, host, () => {
       resolve()
     })
   })
 
-  /**
-   * Closes http server
-   */
-  return () =>
-    new Promise<void>((resolve, reject) =>
+  const test = getActiveTest()
+  test?.cleanup(() => {
+    return new Promise<void>((resolve, reject) =>
       server.close((error) => {
         if (error) {
           reject(error)
@@ -43,6 +42,9 @@ export async function createHttpServer(
         }
       })
     )
+  })
+
+  return { url, server, port, host }
 }
 
 /**

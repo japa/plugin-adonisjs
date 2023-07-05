@@ -1,17 +1,18 @@
 /*
  * @japa/plugin-adonisjs
  *
- * (c) Japa.dev
+ * (c) Japa
  *
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
 
-import { test, TestContext } from '@japa/runner'
+import { test } from '@japa/runner'
+import { TestContext } from '@japa/runner/core'
 import type { ApplicationService } from '@adonisjs/core/types'
 
-import { bootApplication } from './bootstrap.js'
 import { extendContext } from '../src/extend_context.js'
+import { bootApplication } from '../tests_helpers/bootstrap.js'
 
 test.group('Extend TestContext', (group) => {
   let app: ApplicationService
