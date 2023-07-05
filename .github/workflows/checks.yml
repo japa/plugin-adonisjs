@@ -1,0 +1,16 @@
+name: checks
+on:
+  - push
+  - pull_request
+
+jobs:
+  test:
+    uses: japa/.github/.github/workflows/test.yml@main
+    with:
+      install-playwright-browsers: true
+
+  lint:
+    uses: japa/.github/.github/workflows/lint.yml@main
+
+  typecheck:
+    uses: japa/.github/.github/workflows/typecheck.yml@main
