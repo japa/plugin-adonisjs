@@ -2,7 +2,7 @@
 
 <br />
 
-[![gh-workflow-image]][gh-workflow-url] [![npm-image]][npm-url] ![][typescript-image] [![license-image]][license-url] [![snyk-image]][snyk-url]
+[![gh-workflow-image]][gh-workflow-url] [![npm-image]][npm-url] ![][typescript-image] [![license-image]][license-url]
 
 ## Introduction
 The `@japa/plugin-adonisjs` is a plugin to test AdonisJS applications with Japa. It contributes AdonisJS specific methods and properties with the [APIClient](https://japa.dev/docs/plugins/api-client), [BrowserClient](https://japa.dev/docs/plugins/browser-client), and the [TestContext](https://japa.dev/docs/test-context).
@@ -21,8 +21,8 @@ In order to ensure that the Japa community is welcoming to all, please review an
 ## License
 Japa Plugin AdonisJS is open-sourced software licensed under the [MIT license](LICENSE.md).
 
-[gh-workflow-image]: https://img.shields.io/github/actions/workflow/status/japa/plugin-adonisjs/test.yml?style=for-the-badge
-[gh-workflow-url]: https://github.com/japa/plugin-adonisjs/actions/workflows/test.yml "Github action"
+[gh-workflow-image]: https://img.shields.io/github/actions/workflow/status/japa/plugin-adonisjs/checks.yml?style=for-the-badge
+[gh-workflow-url]: https://github.com/japa/plugin-adonisjs/actions/workflows/checks.yml "Github action"
 
 [npm-image]: https://img.shields.io/npm/v/@japa/plugin-adonisjs/latest.svg?style=for-the-badge&logo=npm
 [npm-url]: https://www.npmjs.com/package/@japa/plugin-adonisjs/v/latest "npm"
@@ -31,6 +31,3 @@ Japa Plugin AdonisJS is open-sourced software licensed under the [MIT license](L
 
 [license-url]: LICENSE.md
 [license-image]: https://img.shields.io/github/license/japa/plugin-adonisjs?style=for-the-badge
-
-[snyk-image]: https://img.shields.io/snyk/vulnerabilities/github/japa/plugin-adonisjs?label=Snyk%20Vulnerabilities&style=for-the-badge
-[snyk-url]: https://snyk.io/test/github/japa/plugin-adonisjs?targetFile=package.json "snyk"
