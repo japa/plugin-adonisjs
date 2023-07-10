@@ -34,7 +34,7 @@ async function canImport(pkg: string) {
  */
 export function pluginAdonisJS(app: ApplicationService, options?: { baseURL: string }) {
   const pluginFn: PluginFn = async function () {
-    extendContext(await app.container.make('router'))
+    extendContext(await app.container.make('router'), await app.container.make('repl'))
 
     /**
      * Extend "@japa/api-client" plugin

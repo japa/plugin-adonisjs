@@ -20,6 +20,8 @@ declare module '@japa/runner/core' {
       params?: any[] | Record<string, any>,
       options?: MakeUrlOptions
     ): string
+
+    startRepl(context: Record<any, any>): Promise<void>
   }
 }
 
