@@ -20,7 +20,8 @@ test.group('Extend TestContext', (group) => {
   group.setup(async () => {
     app = await bootApplication('web')
     const router = await app.container.make('router')
-    extendContext(router)
+    const repl = await app.container.make('repl')
+    extendContext(router, repl)
   })
 
   test('add route helper to TestContext', async ({ assert }) => {
@@ -29,5 +30,9 @@ test.group('Extend TestContext', (group) => {
     router.commit()
 
     assert.equal(new TestContext({} as any).route('posts.show', [1]), '/posts/1')
+  })
+
+  test('add startRepl helper to TestContext', async ({ assert }) => {
+    assert.property(new TestContext({} as any), 'startRepl')
   })
 })

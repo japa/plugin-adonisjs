@@ -11,7 +11,9 @@ import './src/types/extended.js'
 import { PluginFn } from '@japa/runner/types'
 import { CookieClient } from '@adonisjs/core/http'
 import { ApplicationService } from '@adonisjs/core/types'
+
 import { extendContext } from './src/extend_context.js'
+import { verifyPrompts } from './src/verify_prompts.js'
 
 /**
  * Find if a given package can be imported.
@@ -33,7 +35,7 @@ async function canImport(pkg: string) {
  * first class knowledge about AdonisJS
  */
 export function pluginAdonisJS(app: ApplicationService, options?: { baseURL: string }) {
-  const pluginFn: PluginFn = async function () {
+  const pluginFn: PluginFn = async function ({ runner }) {
     extendContext(await app.container.make('router'), await app.container.make('repl'))
 
     /**
@@ -54,6 +56,12 @@ export function pluginAdonisJS(app: ApplicationService, options?: { baseURL: str
         options?.baseURL
       )
     }
+
+    /**
+     * Verify prompts that were trapped but never triggered
+     */
+    const ace = await app.container.make('ace')
+    verifyPrompts(ace, runner)
   }
   return pluginFn
 }
