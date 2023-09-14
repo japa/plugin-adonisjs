@@ -36,12 +36,14 @@ async function canImport(pkg: string) {
  */
 export function pluginAdonisJS(app: ApplicationService, options?: { baseURL: string }) {
   const pluginFn: PluginFn = async function ({ runner }) {
-    extendContext(await app.container.make('router'), await app.container.make('repl'))
+    if (app.container.hasAllBindings(['router', 'repl'])) {
+      extendContext(await app.container.make('router'), await app.container.make('repl'))
+    }
 
     /**
      * Extend "@japa/api-client" plugin
      */
-    if (await canImport('@japa/api-client')) {
+    if ((await canImport('@japa/api-client')) && app.container.hasBinding('encryption')) {
       const { extendApiClient } = await import('./src/extend_api_client.js')
       extendApiClient(new CookieClient(await app.container.make('encryption')))
     }
@@ -49,7 +51,11 @@ export function pluginAdonisJS(app: ApplicationService, options?: { baseURL: str
     /**
      * Extend "@japa/browser-client" plugin
      */
-    if ((await canImport('@japa/browser-client')) && (await canImport('playwright'))) {
+    if (
+      (await canImport('@japa/browser-client')) &&
+      (await canImport('playwright')) &&
+      app.container.hasBinding('encryption')
+    ) {
       const { extendBrowserClient } = await import('./src/extend_browser_client.js')
       extendBrowserClient(
         new CookieClient(await app.container.make('encryption')),
@@ -60,8 +66,10 @@ export function pluginAdonisJS(app: ApplicationService, options?: { baseURL: str
     /**
      * Verify prompts that were trapped but never triggered
      */
-    const ace = await app.container.make('ace')
-    verifyPrompts(ace, runner)
+    if (app.container.hasBinding('ace')) {
+      const ace = await app.container.make('ace')
+      verifyPrompts(ace, runner)
+    }
   }
   return pluginFn
 }
