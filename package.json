@@ -4,9 +4,7 @@
   "description": "A bridge between AdonisJS and Japa",
   "main": "build/index.js",
   "files": [
-    "build/src",
-    "build/index.d.ts",
-    "build/index.js"
+    "build"
   ],
   "exports": {
     ".": "./build/index.js"
@@ -20,7 +18,7 @@
     "test": "cross-env NODE_DEBUG=japa:plugin-adonisjs c8 npm run quick:test",
     "clean": "del-cli build",
     "typecheck": "tsc --noEmit",
-    "compile": "npm run lint && npm run clean && tsc",
+    "compile": "npm run lint && npm run clean && tsup-node",
     "build": "npm run compile",
     "release": "np",
     "version": "npm run build",
@@ -64,6 +62,7 @@
     "playwright": "^1.39.0",
     "prettier": "^3.0.3",
     "ts-node": "^10.8.1",
+    "tsup": "^7.2.0",
     "typescript": "^5.2.2"
   },
   "peerDependencies": {
@@ -115,5 +114,15 @@
   "eslintConfig": {
     "extends": "@adonisjs/eslint-config/package"
   },
-  "prettier": "@adonisjs/prettier-config"
+  "prettier": "@adonisjs/prettier-config",
+  "tsup": {
+    "entry": [
+      "./index.ts"
+    ],
+    "outDir": "./build",
+    "clean": true,
+    "format": "esm",
+    "dts": true,
+    "target": "esnext"
+  }
 }

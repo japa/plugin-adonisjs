@@ -8,9 +8,9 @@
  */
 
 import './src/types/extended.js'
-import { PluginFn } from '@japa/runner/types'
+import type { PluginFn } from '@japa/runner/types'
 import { CookieClient } from '@adonisjs/core/http'
-import { ApplicationService } from '@adonisjs/core/types'
+import type { ApplicationService } from '@adonisjs/core/types'
 
 import { extendContext } from './src/extend_context.js'
 import { verifyPrompts } from './src/verify_prompts.js'
