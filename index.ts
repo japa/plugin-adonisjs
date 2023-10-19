@@ -1,17 +1,19 @@
 /*
  * @japa/plugin-adonisjs
  *
- * (c) Japa.dev
+ * (c) Japa
  *
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
 
-import './src/extended_types.js'
-import { PluginFn } from '@japa/runner'
+import './src/types/extended.js'
+import type { PluginFn } from '@japa/runner/types'
 import { CookieClient } from '@adonisjs/core/http'
-import { ApplicationService } from '@adonisjs/core/types'
+import type { ApplicationService } from '@adonisjs/core/types'
+
 import { extendContext } from './src/extend_context.js'
+import { verifyPrompts } from './src/verify_prompts.js'
 
 /**
  * Find if a given package can be imported.
@@ -33,13 +35,15 @@ async function canImport(pkg: string) {
  * first class knowledge about AdonisJS
  */
 export function pluginAdonisJS(app: ApplicationService, options?: { baseURL: string }) {
-  const pluginFn: PluginFn = async function () {
-    extendContext(await app.container.make('router'))
+  const pluginFn: PluginFn = async function ({ runner }) {
+    if (app.container.hasAllBindings(['router', 'repl'])) {
+      extendContext(await app.container.make('router'), await app.container.make('repl'))
+    }
 
     /**
      * Extend "@japa/api-client" plugin
      */
-    if (await canImport('@japa/api-client')) {
+    if ((await canImport('@japa/api-client')) && app.container.hasBinding('encryption')) {
       const { extendApiClient } = await import('./src/extend_api_client.js')
       extendApiClient(new CookieClient(await app.container.make('encryption')))
     }
@@ -47,12 +51,24 @@ export function pluginAdonisJS(app: ApplicationService, options?: { baseURL: str
     /**
      * Extend "@japa/browser-client" plugin
      */
-    if ((await canImport('@japa/browser-client')) && (await canImport('playwright'))) {
+    if (
+      (await canImport('@japa/browser-client')) &&
+      (await canImport('playwright')) &&
+      app.container.hasBinding('encryption')
+    ) {
       const { extendBrowserClient } = await import('./src/extend_browser_client.js')
       extendBrowserClient(
         new CookieClient(await app.container.make('encryption')),
         options?.baseURL
       )
+    }
+
+    /**
+     * Verify prompts that were trapped but never triggered
+     */
+    if (app.container.hasBinding('ace')) {
+      const ace = await app.container.make('ace')
+      verifyPrompts(ace, runner)
     }
   }
   return pluginFn

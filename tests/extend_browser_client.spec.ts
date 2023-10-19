@@ -1,7 +1,7 @@
 /*
  * @japa/plugin-adonisjs
  *
- * (c) Japa.dev
+ * (c) Japa
  *
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
@@ -13,7 +13,7 @@ import { CookieClient } from '@adonisjs/core/http'
 import { decorateBrowser, decoratorsCollection } from '@japa/browser-client'
 
 import { extendBrowserClient } from '../src/extend_browser_client.js'
-import { SERVER_URL, bootApplication, createHttpServer } from './bootstrap.js'
+import { bootApplication, createHttpServer } from '../tests_helpers/bootstrap.js'
 
 test.group('Extend Browser client', (group) => {
   group.tap((t) => t.timeout(8000))
@@ -24,13 +24,10 @@ test.group('Extend Browser client', (group) => {
     /**
      * Setup
      */
-    const browser = await chromium.launch()
     const app = await bootApplication('web')
     const router = await app.container.make('router')
     const server = await app.container.make('server')
     const encryption = await app.container.make('encryption')
-    extendBrowserClient(new CookieClient(encryption), SERVER_URL)
-    decorateBrowser(browser, decoratorsCollection.toJSON())
 
     router.get('/', ({ request }) => {
       return `<html>
@@ -41,12 +38,11 @@ test.group('Extend Browser client', (group) => {
     })
     await server.boot()
 
-    /**
-     * Cleanup
-     */
-    const closeServer = await createHttpServer(server.handle.bind(server))
+    const { url } = await createHttpServer(server.handle.bind(server))
+    const browser = await chromium.launch()
+    extendBrowserClient(new CookieClient(encryption), url)
+    decorateBrowser(browser, decoratorsCollection.toList())
     cleanup(async () => {
-      await closeServer()
       await browser.close()
     })
 
@@ -57,7 +53,7 @@ test.group('Extend Browser client', (group) => {
     await context.setCookie('username', 'virk')
 
     const page = await context.newPage()
-    await page.goto(SERVER_URL)
+    await page.goto(url)
     assert.equal(await page.inputValue('input[name="cookie"]'), 'virk')
   })
 
@@ -67,13 +63,10 @@ test.group('Extend Browser client', (group) => {
     /**
      * Setup
      */
-    const browser = await chromium.launch()
     const app = await bootApplication('web')
     const router = await app.container.make('router')
     const server = await app.container.make('server')
     const encryption = await app.container.make('encryption')
-    extendBrowserClient(new CookieClient(encryption), SERVER_URL)
-    decorateBrowser(browser, decoratorsCollection.toJSON())
 
     router.get('/', ({ request }) => {
       return `<html>
@@ -84,12 +77,11 @@ test.group('Extend Browser client', (group) => {
     })
     await server.boot()
 
-    /**
-     * Cleanup
-     */
-    const closeServer = await createHttpServer(server.handle.bind(server))
+    const { url } = await createHttpServer(server.handle.bind(server))
+    const browser = await chromium.launch()
+    extendBrowserClient(new CookieClient(encryption), url)
+    decorateBrowser(browser, decoratorsCollection.toList())
     cleanup(async () => {
-      await closeServer()
       await browser.close()
     })
 
@@ -100,7 +92,7 @@ test.group('Extend Browser client', (group) => {
     await context.setEncryptedCookie('username', 'virk')
 
     const page = await context.newPage()
-    await page.goto(SERVER_URL)
+    await page.goto(url)
     assert.equal(await page.inputValue('input[name="cookie"]'), 'virk')
   })
 
@@ -110,13 +102,10 @@ test.group('Extend Browser client', (group) => {
     /**
      * Setup
      */
-    const browser = await chromium.launch()
     const app = await bootApplication('web')
     const router = await app.container.make('router')
     const server = await app.container.make('server')
     const encryption = await app.container.make('encryption')
-    extendBrowserClient(new CookieClient(encryption), SERVER_URL)
-    decorateBrowser(browser, decoratorsCollection.toJSON())
 
     router.get('/', ({ request }) => {
       return `<html>
@@ -127,12 +116,11 @@ test.group('Extend Browser client', (group) => {
     })
     await server.boot()
 
-    /**
-     * Cleanup
-     */
-    const closeServer = await createHttpServer(server.handle.bind(server))
+    const { url } = await createHttpServer(server.handle.bind(server))
+    const browser = await chromium.launch()
+    extendBrowserClient(new CookieClient(encryption), url)
+    decorateBrowser(browser, decoratorsCollection.toList())
     cleanup(async () => {
-      await closeServer()
       await browser.close()
     })
 
@@ -143,7 +131,7 @@ test.group('Extend Browser client', (group) => {
     await context.setPlainCookie('username', 'virk')
 
     const page = await context.newPage()
-    await page.goto(SERVER_URL)
+    await page.goto(url)
     assert.equal(await page.inputValue('input[name="cookie"]'), 'virk')
   })
 
@@ -151,13 +139,10 @@ test.group('Extend Browser client', (group) => {
     /**
      * Setup
      */
-    const browser = await chromium.launch()
     const app = await bootApplication('web')
     const router = await app.container.make('router')
     const server = await app.container.make('server')
     const encryption = await app.container.make('encryption')
-    extendBrowserClient(new CookieClient(encryption), SERVER_URL)
-    decorateBrowser(browser, decoratorsCollection.toJSON())
 
     router.get('/', ({ response }) => {
       response.cookie('username', 'virk')
@@ -166,12 +151,11 @@ test.group('Extend Browser client', (group) => {
     })
     await server.boot()
 
-    /**
-     * Cleanup
-     */
-    const closeServer = await createHttpServer(server.handle.bind(server))
+    const { url } = await createHttpServer(server.handle.bind(server))
+    const browser = await chromium.launch()
+    extendBrowserClient(new CookieClient(encryption), url)
+    decorateBrowser(browser, decoratorsCollection.toList())
     cleanup(async () => {
-      await closeServer()
       await browser.close()
     })
 
@@ -180,7 +164,7 @@ test.group('Extend Browser client', (group) => {
      */
     const context = await browser.newContext()
     const page = await context.newPage()
-    await page.goto(SERVER_URL)
+    await page.goto(url)
 
     assert.equal(await context.getCookie('username'), 'virk')
     assert.equal(await context.getEncryptedCookie('email'), 'foo@bar.com')
@@ -191,13 +175,10 @@ test.group('Extend Browser client', (group) => {
     /**
      * Setup
      */
-    const browser = await chromium.launch()
     const app = await bootApplication('web')
     const router = await app.container.make('router')
     const server = await app.container.make('server')
     const encryption = await app.container.make('encryption')
-    extendBrowserClient(new CookieClient(encryption), SERVER_URL)
-    decorateBrowser(browser, decoratorsCollection.toJSON())
 
     router.get('/', ({ response }) => {
       response.cookie('username', 'virk')
@@ -206,12 +187,11 @@ test.group('Extend Browser client', (group) => {
     })
     await server.boot()
 
-    /**
-     * Cleanup
-     */
-    const closeServer = await createHttpServer(server.handle.bind(server))
+    const { url } = await createHttpServer(server.handle.bind(server))
+    const browser = await chromium.launch()
+    extendBrowserClient(new CookieClient(encryption), url)
+    decorateBrowser(browser, decoratorsCollection.toList())
     cleanup(async () => {
-      await closeServer()
       await browser.close()
     })
 
@@ -220,7 +200,7 @@ test.group('Extend Browser client', (group) => {
      */
     const context = await browser.newContext()
     const page = await context.newPage()
-    await page.goto(SERVER_URL)
+    await page.goto(url)
 
     await context.clearCookies()
 

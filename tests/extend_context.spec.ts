@@ -1,17 +1,18 @@
 /*
  * @japa/plugin-adonisjs
  *
- * (c) Japa.dev
+ * (c) Japa
  *
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
 
-import { test, TestContext } from '@japa/runner'
+import { test } from '@japa/runner'
+import { TestContext } from '@japa/runner/core'
 import type { ApplicationService } from '@adonisjs/core/types'
 
-import { bootApplication } from './bootstrap.js'
 import { extendContext } from '../src/extend_context.js'
+import { bootApplication } from '../tests_helpers/bootstrap.js'
 
 test.group('Extend TestContext', (group) => {
   let app: ApplicationService
@@ -19,7 +20,8 @@ test.group('Extend TestContext', (group) => {
   group.setup(async () => {
     app = await bootApplication('web')
     const router = await app.container.make('router')
-    extendContext(router)
+    const repl = await app.container.make('repl')
+    extendContext(router, repl)
   })
 
   test('add route helper to TestContext', async ({ assert }) => {
@@ -28,5 +30,9 @@ test.group('Extend TestContext', (group) => {
     router.commit()
 
     assert.equal(new TestContext({} as any).route('posts.show', [1]), '/posts/1')
+  })
+
+  test('add startRepl helper to TestContext', async ({ assert }) => {
+    assert.property(new TestContext({} as any), 'startRepl')
   })
 })
