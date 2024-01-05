@@ -37,6 +37,9 @@ export function extendApiClient(cookieClient: CookieClient) {
      * plain string
      */
     process(key: string, value: any) {
+      if (!value) {
+        return value
+      }
       return cookieClient.parse(key, value)
     },
   })

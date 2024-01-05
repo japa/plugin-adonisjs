@@ -164,4 +164,37 @@ test.group('Extend ApiClient', () => {
     assert.equal(cookies.email.value, 'foo@bar.com')
     assert.equal(cookies.id.value, '1')
   })
+
+  test('parse expired response cookies', async ({ assert }) => {
+    /**
+     * Setup
+     */
+    const app = await bootApplication('web')
+    const encryption = await app.container.make('encryption')
+    const router = await app.container.make('router')
+    const server = await app.container.make('server')
+    router.get('/', ({ response }) => {
+      response.cookie('username', 'virk')
+      response.clearCookie('id')
+    })
+    await server.boot()
+    extendApiClient(new CookieClient(encryption))
+
+    /**
+     * Cleanup
+     */
+    const { url } = await createHttpServer(server.handle.bind(server))
+
+    /**
+     * Test
+     */
+    const client = new ApiClient(url)
+    const response = await client.get('/')
+    const cookies = response.cookies()
+
+    assert.equal(response.status(), 200)
+    assert.equal(cookies.id.value, '')
+    assert.equal(cookies.id.maxAge, -1)
+    assert.deepEqual(cookies.id.expires, new Date(0))
+  })
 })
