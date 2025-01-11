@@ -30,7 +30,7 @@
     "lint": "eslint . --ext=.ts",
     "format": "prettier --write .",
     "sync-labels": "github-label-sync --labels .github/labels.json japa/plugin-adonisjs",
-    "quick:test": "node --loader=ts-node/esm bin/test.ts"
+    "quick:test": "node --import=ts-node-maintained/register/esm bin/test.ts"
   },
   "publishConfig": {
     "access": "public",
@@ -65,7 +65,7 @@
     "np": "^10.0.2",
     "playwright": "^1.42.1",
     "prettier": "^3.2.5",
-    "ts-node": "^10.9.2",
+    "ts-node-maintained": "^10.9.4",
     "tsup": "^8.0.2",
     "typescript": "^5.4.3"
   },
