@@ -40,7 +40,7 @@
     "plugin-adonisjs",
     "japa-plugin"
   ],
-  "author": "virk,japa",
+  "author": "Harminder Virk <virk@adonisjs.com>",
   "license": "MIT",
   "devDependencies": {
     "@adonisjs/core": "^6.5.0",
