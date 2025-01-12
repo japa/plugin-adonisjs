@@ -21,7 +21,12 @@ declare module '@japa/runner/core' {
       options?: MakeUrlOptions
     ): string
 
-    startRepl(context: Record<any, any>): Promise<void>
+    repl: {
+      /**
+       * Start AdonisJS repl during the test
+       */
+      start(context?: Record<any, any>): Promise<void>
+    }
   }
 }
 
