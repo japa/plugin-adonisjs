@@ -1,6 +1,6 @@
 {
   "name": "@japa/plugin-adonisjs",
-  "version": "3.0.2",
+  "version": "4.0.0",
   "description": "A bridge between AdonisJS and Japa",
   "main": "build/index.js",
   "files": [
