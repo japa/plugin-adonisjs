@@ -7,18 +7,24 @@
  * file that was distributed with this source code.
  */
 
-import { Cookie } from 'playwright'
-import type { MakeUrlOptions } from '@adonisjs/core/types/http'
+import { type Cookie } from 'playwright'
+import type {
+  RoutesList,
+  URLOptions,
+  LookupList,
+  GetRoutesForMethod,
+  RouteBuilderArguments,
+} from '@adonisjs/core/types/http'
 
 declare module '@japa/runner/core' {
   export interface TestContext {
     /**
      * Create URL for a pre-registered route
      */
-    route(
-      routeIdentifier: string,
-      params?: any[] | Record<string, any>,
-      options?: MakeUrlOptions
+    route<Identifier extends keyof GetRoutesForMethod<RoutesList, 'GET'> & string>(
+      ...args: RoutesList extends LookupList
+        ? RouteBuilderArguments<Identifier, RoutesList['GET'][Identifier], URLOptions>
+        : []
     ): string
 
     repl: {

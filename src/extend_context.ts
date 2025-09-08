@@ -7,11 +7,11 @@
  * file that was distributed with this source code.
  */
 
-import './types/extended.js'
-import { Repl } from '@adonisjs/core/repl'
-import type { Router } from '@adonisjs/core/http'
+import { type Repl } from '@adonisjs/core/repl'
 import { TestContext } from '@japa/runner/core'
+import type { Router } from '@adonisjs/core/http'
 
+import './types/extended.js'
 import debug from './debug.js'
 
 export function extendContext(router: Router, repl: Repl) {
@@ -30,8 +30,9 @@ export function extendContext(router: Router, repl: Repl) {
     })
   }
 
-  TestContext.macro('route', function (this: TestContext, routeIdentifier, params?, options?) {
-    return router.makeUrl(routeIdentifier, params, options)
+  TestContext.macro('route', function (this: TestContext, ...args) {
+    const [identifier, params, options] = args as any[]
+    return (router.urlBuilder.urlFor as any)(identifier, params, options)
   })
 
   TestContext.getter('repl', function (this: TestContext) {

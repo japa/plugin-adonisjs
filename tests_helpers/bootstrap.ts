@@ -10,9 +10,9 @@
 import getPort from 'get-port'
 import { getActiveTest } from '@japa/runner'
 import { IgnitorFactory } from '@adonisjs/core/factories'
-import { AppEnvironments } from '@adonisjs/core/types/app'
+import { type AppEnvironments } from '@adonisjs/core/types/app'
 import type { ApplicationService } from '@adonisjs/core/types'
-import { IncomingMessage, ServerResponse, createServer } from 'node:http'
+import { type IncomingMessage, type ServerResponse, createServer } from 'node:http'
 
 /**
  * Create a HTTP server to handle request
