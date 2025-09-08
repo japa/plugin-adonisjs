@@ -11,8 +11,8 @@ import { test } from '@japa/runner'
 import type { ApplicationService } from '@adonisjs/core/types'
 import { Emitter, Group, Refiner, Runner, Suite, Test, TestContext } from '@japa/runner/core'
 
-import { bootApplication } from '../tests_helpers/bootstrap.js'
-import { verifyPrompts } from '../src/verify_prompts.js'
+import { bootApplication } from '../tests_helpers/bootstrap.ts'
+import { verifyPrompts } from '../src/verify_prompts.ts'
 
 test.group('Verify prompts', (group) => {
   let app: ApplicationService

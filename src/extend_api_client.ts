@@ -11,7 +11,7 @@ import { type CookieClient } from '@adonisjs/core/http'
 import { ApiClient, ApiRequest } from '@japa/api-client'
 
 import './types/extended.js'
-import debug from './debug.js'
+import debug from './debug.ts'
 
 /**
  * Extending the "@japa/api-client" plugin with custom methods to

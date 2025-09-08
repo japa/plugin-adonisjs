@@ -12,8 +12,8 @@ import type { PluginFn } from '@japa/runner/types'
 import { CookieClient } from '@adonisjs/core/http'
 import type { ApplicationService } from '@adonisjs/core/types'
 
-import { extendContext } from './src/extend_context.js'
-import { verifyPrompts } from './src/verify_prompts.js'
+import { extendContext } from './src/extend_context.ts'
+import { verifyPrompts } from './src/verify_prompts.ts'
 
 /**
  * Find if a given package can be imported.

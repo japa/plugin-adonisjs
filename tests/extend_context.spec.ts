@@ -11,8 +11,8 @@ import { test } from '@japa/runner'
 import type { ApplicationService } from '@adonisjs/core/types'
 import { Emitter, Refiner, Runner, Suite, Test, TestContext } from '@japa/runner/core'
 
-import { extendContext } from '../src/extend_context.js'
-import { bootApplication } from '../tests_helpers/bootstrap.js'
+import { extendContext } from '../src/extend_context.ts'
+import { bootApplication } from '../tests_helpers/bootstrap.ts'
 
 test.group('Extend TestContext', (group) => {
   let app: ApplicationService

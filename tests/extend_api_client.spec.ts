@@ -11,8 +11,8 @@ import { test } from '@japa/runner'
 import { ApiClient } from '@japa/api-client'
 import { CookieClient } from '@adonisjs/core/http'
 
-import { extendApiClient } from '../src/extend_api_client.js'
-import { bootApplication, createHttpServer } from '../tests_helpers/bootstrap.js'
+import { extendApiClient } from '../src/extend_api_client.ts'
+import { bootApplication, createHttpServer } from '../tests_helpers/bootstrap.ts'
 
 test.group('Extend ApiClient', () => {
   test('send signed cookie to the server', async ({ assert }) => {

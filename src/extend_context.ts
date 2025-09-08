@@ -12,7 +12,7 @@ import { TestContext } from '@japa/runner/core'
 import type { Router } from '@adonisjs/core/http'
 
 import './types/extended.js'
-import debug from './debug.js'
+import debug from './debug.ts'
 
 export function extendContext(router: Router, repl: Repl) {
   debug('extending japa context with adonisjs specific methods')

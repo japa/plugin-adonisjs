@@ -12,8 +12,8 @@ import { chromium } from 'playwright'
 import { CookieClient } from '@adonisjs/core/http'
 import { decorateBrowser, decoratorsCollection } from '@japa/browser-client'
 
-import { extendBrowserClient } from '../src/extend_browser_client.js'
-import { bootApplication, createHttpServer } from '../tests_helpers/bootstrap.js'
+import { extendBrowserClient } from '../src/extend_browser_client.ts'
+import { bootApplication, createHttpServer } from '../tests_helpers/bootstrap.ts'
 
 test.group('Extend Browser client', (group) => {
   group.tap((t) => t.timeout(8000))

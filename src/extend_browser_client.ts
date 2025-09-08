@@ -13,7 +13,7 @@ import { decoratorsCollection } from '@japa/browser-client'
 import type { Decorator } from '@japa/browser-client/types'
 
 import './types/extended.js'
-import debug from './debug.js'
+import debug from './debug.ts'
 
 /**
  * Normalizes the cookies options to use the default domain
