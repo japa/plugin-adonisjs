@@ -14,12 +14,31 @@ import type { Router } from '@adonisjs/core/http'
 import './types/extended.js'
 import debug from './debug.ts'
 
+/**
+ * Extends the Japa test context with AdonisJS-specific methods.
+ *
+ * This function adds route generation and REPL functionality to the test context.
+ * It provides access to AdonisJS router for URL generation and allows starting
+ * the AdonisJS REPL during tests for interactive debugging.
+ *
+ * @param router - The AdonisJS HTTP router instance
+ * @param repl - The AdonisJS REPL instance
+ *
+ * @example
+ * ```js
+ * extendContext(app.container.use('router'), app.container.use('repl'))
+ * ```
+ */
 export function extendContext(router: Router, repl: Repl) {
   debug('extending japa context with adonisjs specific methods')
 
   /**
-   * Starts the AdonisJS repl and resolves the promise when
-   * the repl is exited.
+   * Starts the AdonisJS REPL and resolves when the REPL is exited.
+   *
+   * This function creates a promise that resolves when the REPL session ends,
+   * allowing for interactive debugging during test execution.
+   *
+   * @param context - Optional context object to make available in the REPL
    */
   function startRepl(context?: Record<any, any>) {
     return new Promise<void>((resolve) => {

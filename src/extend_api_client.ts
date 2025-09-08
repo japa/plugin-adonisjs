@@ -14,27 +14,51 @@ import './types/extended.js'
 import debug from './debug.ts'
 
 /**
- * Extending the "@japa/api-client" plugin with custom methods to
- * set cookies, session, csrf token and authenticated user.
+ * Extends the "@japa/api-client" plugin with AdonisJS-specific cookie methods.
+ *
+ * This function adds custom methods to the ApiClient for handling signed, encrypted,
+ * and plain cookies. It also sets up a cookie serializer to properly parse response
+ * cookies using the AdonisJS cookie client.
+ *
+ * @param cookieClient - The AdonisJS cookie client instance for cookie operations
+ *
+ * @example
+ * ```js
+ * extendApiClient(app.container.use('cookie'))
+ * ```
  */
 export function extendApiClient(cookieClient: CookieClient) {
   debug('extending @japa/api-client with adonisjs specific methods')
 
   /**
-   * Serializer for parsing response cookies
+   * Cookie serializer for handling AdonisJS cookies in API responses.
+   *
+   * Sets up methods to prepare cookies for requests and process cookies from responses.
+   * The prepare method returns values as-is since encryption/signing happens in the macro methods.
+   * The process method uses the AdonisJS cookie client to parse signed/encrypted cookies.
    */
   ApiClient.cookiesSerializer({
     /**
-     * The methods on the Request class encrypts and signs cookies.
-     * Therefore, the prepare method returns the value as it is
+     * Prepares cookie values for outgoing requests.
+     *
+     * Returns the value as-is since cookie encryption and signing is handled
+     * by the macro methods before reaching this serializer.
+     *
+     * @param _ - Cookie key (unused)
+     * @param value - Cookie value to prepare
      */
     prepare(_: string, value: any) {
       return value
     },
 
     /**
-     * Process the server response and convert cookie value to a
-     * plain string
+     * Processes cookies from server responses.
+     *
+     * Uses the AdonisJS cookie client to parse signed/encrypted cookies
+     * from server responses back to their original values.
+     *
+     * @param key - The cookie name
+     * @param value - The raw cookie value from server response
      */
     process(key: string, value: any) {
       if (!value) {

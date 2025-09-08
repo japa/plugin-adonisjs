@@ -16,8 +16,13 @@ import './types/extended.js'
 import debug from './debug.ts'
 
 /**
- * Normalizes the cookies options to use the default domain
- * and path
+ * Normalizes cookie options by setting default domain and path values.
+ *
+ * This function ensures cookies have consistent domain and path settings
+ * by applying defaults when not explicitly provided.
+ *
+ * @param defaultDomain - The default domain to use for cookies
+ * @param options - Optional cookie options to merge with defaults
  */
 function normalizeCookieOptions(defaultDomain?: string, options?: CookieOptions): CookieOptions {
   return Object.assign(
@@ -30,8 +35,13 @@ function normalizeCookieOptions(defaultDomain?: string, options?: CookieOptions)
 }
 
 /**
- * Mimicing the behavior of https://github.com/jshttp/cookie/blob/master/index.js
- * package used by AdonisJS to decode response cookies.
+ * Safely decodes URL-encoded cookie values.
+ *
+ * Mimics the behavior of the jshttp/cookie package used by AdonisJS.
+ * Attempts to decode URL-encoded values but returns the original value
+ * if decoding fails.
+ *
+ * @param value - The cookie value to decode
  */
 function tryDecode(value: string) {
   try {
@@ -42,7 +52,19 @@ function tryDecode(value: string) {
 }
 
 /**
- * Registers custom decorators with the browser client
+ * Extends the browser client with AdonisJS-specific cookie functionality.
+ *
+ * This function registers decorators that add cookie management methods to the
+ * Playwright browser context. It enables setting and getting signed, encrypted,
+ * and plain cookies during browser tests.
+ *
+ * @param cookieClient - The AdonisJS cookie client for cookie operations
+ * @param baseURL - Optional base URL for determining cookie domain
+ *
+ * @example
+ * ```js
+ * extendBrowserClient(app.container.use('cookie'), 'http://localhost:3333')
+ * ```
  */
 export function extendBrowserClient(cookieClient: CookieClient, baseURL?: string) {
   debug('extending @japa/browser-client with adonisjs specific methods')
