@@ -29,7 +29,7 @@ test.group('Extend TestContext', (group) => {
     router.get('posts/:id', () => {}).as('posts.show')
     router.commit()
 
-    assert.equal(new TestContext({} as any).route('posts.show', [1]), '/posts/1')
+    assert.equal((new TestContext({} as any).route as any)('posts.show', [1]), '/posts/1')
   })
 
   test('add startRepl helper to TestContext', async ({ assert }) => {
