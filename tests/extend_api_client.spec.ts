@@ -10,6 +10,7 @@
 import { test } from '@japa/runner'
 import { ApiClient } from '@japa/api-client'
 import { CookieClient } from '@adonisjs/core/http'
+import { Encryption } from '@adonisjs/core/encryption'
 
 import { extendApiClient } from '../src/extend_api_client.ts'
 import { bootApplication, createHttpServer } from '../tests_helpers/bootstrap.ts'
@@ -22,7 +23,7 @@ test.group('Extend ApiClient', () => {
      * Setup
      */
     const app = await bootApplication('web')
-    const encryption = await app.container.make('encryption')
+    const encryption = await app.container.make(Encryption)
     const router = await app.container.make('router')
     const server = await app.container.make('server')
     router.get('/', ({ request }) => {
@@ -51,7 +52,7 @@ test.group('Extend ApiClient', () => {
      * Setup
      */
     const app = await bootApplication('web')
-    const encryption = await app.container.make('encryption')
+    const encryption = await app.container.make(Encryption)
     const router = await app.container.make('router')
     const server = await app.container.make('server')
     router.get('/', ({ request }) => {
@@ -80,7 +81,7 @@ test.group('Extend ApiClient', () => {
      * Setup
      */
     const app = await bootApplication('web')
-    const encryption = await app.container.make('encryption')
+    const encryption = await app.container.make(Encryption)
     const router = await app.container.make('router')
     const server = await app.container.make('server')
     router.get('/', ({ request }) => {
@@ -109,7 +110,7 @@ test.group('Extend ApiClient', () => {
      * Setup
      */
     const app = await bootApplication('web')
-    const encryption = await app.container.make('encryption')
+    const encryption = await app.container.make(Encryption)
     const router = await app.container.make('router')
     const server = await app.container.make('server')
     router.get('/', ({ request }) => {
@@ -136,7 +137,7 @@ test.group('Extend ApiClient', () => {
      * Setup
      */
     const app = await bootApplication('web')
-    const encryption = await app.container.make('encryption')
+    const encryption = await app.container.make(Encryption)
     const router = await app.container.make('router')
     const server = await app.container.make('server')
     router.get('/', ({ response }) => {
@@ -170,7 +171,7 @@ test.group('Extend ApiClient', () => {
      * Setup
      */
     const app = await bootApplication('web')
-    const encryption = await app.container.make('encryption')
+    const encryption = await app.container.make(Encryption)
     const router = await app.container.make('router')
     const server = await app.container.make('server')
     router.get('/', ({ response }) => {

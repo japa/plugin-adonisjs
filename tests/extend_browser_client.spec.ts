@@ -10,6 +10,7 @@
 import { test } from '@japa/runner'
 import { chromium } from 'playwright'
 import { CookieClient } from '@adonisjs/core/http'
+import { Encryption } from '@adonisjs/core/encryption'
 import { decorateBrowser, decoratorsCollection } from '@japa/browser-client'
 
 import { extendBrowserClient } from '../src/extend_browser_client.ts'
@@ -27,7 +28,7 @@ test.group('Extend Browser client', (group) => {
     const app = await bootApplication('web')
     const router = await app.container.make('router')
     const server = await app.container.make('server')
-    const encryption = await app.container.make('encryption')
+    const encryption = await app.container.make(Encryption)
 
     router.get('/', ({ request }) => {
       return `<html>
@@ -66,7 +67,7 @@ test.group('Extend Browser client', (group) => {
     const app = await bootApplication('web')
     const router = await app.container.make('router')
     const server = await app.container.make('server')
-    const encryption = await app.container.make('encryption')
+    const encryption = await app.container.make(Encryption)
 
     router.get('/', ({ request }) => {
       return `<html>
@@ -105,7 +106,7 @@ test.group('Extend Browser client', (group) => {
     const app = await bootApplication('web')
     const router = await app.container.make('router')
     const server = await app.container.make('server')
-    const encryption = await app.container.make('encryption')
+    const encryption = await app.container.make(Encryption)
 
     router.get('/', ({ request }) => {
       return `<html>
@@ -142,7 +143,7 @@ test.group('Extend Browser client', (group) => {
     const app = await bootApplication('web')
     const router = await app.container.make('router')
     const server = await app.container.make('server')
-    const encryption = await app.container.make('encryption')
+    const encryption = await app.container.make(Encryption)
 
     router.get('/', ({ response }) => {
       response.cookie('username', 'virk')
@@ -178,7 +179,7 @@ test.group('Extend Browser client', (group) => {
     const app = await bootApplication('web')
     const router = await app.container.make('router')
     const server = await app.container.make('server')
-    const encryption = await app.container.make('encryption')
+    const encryption = await app.container.make(Encryption)
 
     router.get('/', ({ response }) => {
       response.cookie('username', 'virk')

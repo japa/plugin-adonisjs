@@ -11,6 +11,7 @@ import './src/types/extended.js'
 import type { PluginFn } from '@japa/runner/types'
 import { CookieClient } from '@adonisjs/core/http'
 import type { ApplicationService } from '@adonisjs/core/types'
+import { Encryption } from '@adonisjs/core/encryption'
 
 import { extendContext } from './src/extend_context.ts'
 import { verifyPrompts } from './src/verify_prompts.ts'
@@ -45,7 +46,7 @@ export function pluginAdonisJS(app: ApplicationService, options?: { baseURL: str
      */
     if ((await canImport('@japa/api-client')) && app.container.hasBinding('encryption')) {
       const { extendApiClient } = await import('./src/extend_api_client.js')
-      extendApiClient(new CookieClient(await app.container.make('encryption')))
+      extendApiClient(new CookieClient(await app.container.make(Encryption)))
     }
 
     /**
@@ -57,10 +58,7 @@ export function pluginAdonisJS(app: ApplicationService, options?: { baseURL: str
       app.container.hasBinding('encryption')
     ) {
       const { extendBrowserClient } = await import('./src/extend_browser_client.js')
-      extendBrowserClient(
-        new CookieClient(await app.container.make('encryption')),
-        options?.baseURL
-      )
+      extendBrowserClient(new CookieClient(await app.container.make(Encryption)), options?.baseURL)
     }
 
     /**
