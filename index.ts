@@ -10,8 +10,8 @@
 import './src/types/extended.js'
 import type { PluginFn } from '@japa/runner/types'
 import { CookieClient } from '@adonisjs/core/http'
-import type { ApplicationService } from '@adonisjs/core/types'
 import { Encryption } from '@adonisjs/core/encryption'
+import type { ApplicationService } from '@adonisjs/core/types'
 
 import { extendContext } from './src/extend_context.ts'
 import { verifyPrompts } from './src/verify_prompts.ts'

@@ -58,11 +58,11 @@
     "typescript": "^5.9.3"
   },
   "peerDependencies": {
-    "@adonisjs/core": "^7.0.0-next.0",
-    "@japa/api-client": "^3.0.0",
-    "@japa/browser-client": "^2.0.3",
-    "@japa/runner": "^4.0.0",
-    "playwright": "^1.55.0"
+    "@adonisjs/core": "^7.0.0-next.15",
+    "@japa/api-client": "^3.1.0",
+    "@japa/browser-client": "^2.2.0",
+    "@japa/runner": "^4.0.0 || ^5.0.0",
+    "playwright": "^1.57.0"
   },
   "peerDependenciesMeta": {
     "@japa/api-client": {
