@@ -22,7 +22,7 @@
     "typecheck": "tsc --noEmit",
     "clean": "del-cli build",
     "precompile": "npm run lint && npm run clean",
-    "compile": "tsup-node && tsc --emitDeclarationOnly --declaration",
+    "compile": "tsdown && tsc --emitDeclarationOnly --declaration",
     "build": "npm run compile",
     "prebenchmark": "npm run build",
     "benchmark": "node benchmarks/index.js",
@@ -54,7 +54,7 @@
     "playwright": "^1.57.0",
     "prettier": "^3.7.4",
     "release-it": "^19.1.0",
-    "tsup": "^8.5.1",
+    "tsdown": "^0.18.0",
     "typescript": "^5.9.3"
   },
   "peerDependencies": {
@@ -93,15 +93,18 @@
     "access": "public",
     "provenance": true
   },
-  "tsup": {
+  "tsdown": {
     "entry": [
       "./index.ts"
     ],
     "outDir": "./build",
     "clean": true,
     "format": "esm",
+    "minify": "dce-only",
+    "fixedExtension": false,
     "dts": false,
-    "sourcemap": false,
+    "treeshake": false,
+    "sourcemaps": false,
     "target": "esnext"
   },
   "release-it": {
