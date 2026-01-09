@@ -30,7 +30,7 @@ test.group('Extend ApiClient', () => {
       assert.equal(request.cookie('username'), 'virk')
     })
     await server.boot()
-    extendApiClient(new CookieClient(encryption))
+    extendApiClient(new CookieClient(encryption), router)
 
     /**
      * Cleanup
@@ -59,7 +59,7 @@ test.group('Extend ApiClient', () => {
       assert.equal(request.cookie('username'), 'virk')
     })
     await server.boot()
-    extendApiClient(new CookieClient(encryption))
+    extendApiClient(new CookieClient(encryption), router)
 
     /**
      * Cleanup
@@ -88,7 +88,7 @@ test.group('Extend ApiClient', () => {
       assert.equal(request.encryptedCookie('username'), 'virk')
     })
     await server.boot()
-    extendApiClient(new CookieClient(encryption))
+    extendApiClient(new CookieClient(encryption), router)
 
     /**
      * Cleanup
@@ -117,7 +117,7 @@ test.group('Extend ApiClient', () => {
       assert.equal(request.plainCookie('username'), 'virk')
     })
     await server.boot()
-    extendApiClient(new CookieClient(encryption))
+    extendApiClient(new CookieClient(encryption), router)
 
     /**
      * Cleanup
@@ -146,7 +146,7 @@ test.group('Extend ApiClient', () => {
       response.plainCookie('id', '1')
     })
     await server.boot()
-    extendApiClient(new CookieClient(encryption))
+    extendApiClient(new CookieClient(encryption), router)
 
     /**
      * Cleanup
@@ -179,7 +179,7 @@ test.group('Extend ApiClient', () => {
       response.clearCookie('id')
     })
     await server.boot()
-    extendApiClient(new CookieClient(encryption))
+    extendApiClient(new CookieClient(encryption), router)
 
     /**
      * Cleanup
