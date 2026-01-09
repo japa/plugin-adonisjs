@@ -50,8 +50,7 @@ export function extendContext(router: Router, repl: Repl) {
   }
 
   TestContext.macro('route', function (this: TestContext, ...args) {
-    const [identifier, params, options] = args as any[]
-    return (router.urlBuilder.urlFor as any)(identifier, params, options)
+    return (router.urlBuilder.urlFor as any)(...args)
   })
 
   TestContext.getter('repl', function (this: TestContext) {
