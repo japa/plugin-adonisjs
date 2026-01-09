@@ -23,6 +23,12 @@ import debug from './debug.ts'
  *
  * @param defaultDomain - The default domain to use for cookies
  * @param options - Optional cookie options to merge with defaults
+ *
+ * @example
+ * ```js
+ * normalizeCookieOptions('localhost', { httpOnly: true })
+ * // Returns: { domain: 'localhost', path: '/', httpOnly: true }
+ * ```
  */
 function normalizeCookieOptions(defaultDomain?: string, options?: CookieOptions): CookieOptions {
   return Object.assign(
@@ -42,6 +48,15 @@ function normalizeCookieOptions(defaultDomain?: string, options?: CookieOptions)
  * if decoding fails.
  *
  * @param value - The cookie value to decode
+ *
+ * @example
+ * ```js
+ * tryDecode('hello%20world')
+ * // Returns: 'hello world'
+ *
+ * tryDecode('invalid%')
+ * // Returns: 'invalid%' (original value due to decode error)
+ * ```
  */
 function tryDecode(value: string) {
   try {

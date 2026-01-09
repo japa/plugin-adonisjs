@@ -39,6 +39,11 @@ export function extendContext(router: Router, repl: Repl) {
    * allowing for interactive debugging during test execution.
    *
    * @param context - Optional context object to make available in the REPL
+   *
+   * @example
+   * ```js
+   * await startRepl({ user: currentUser, app })
+   * ```
    */
   function startRepl(context?: Record<any, any>) {
     return new Promise<void>((resolve) => {

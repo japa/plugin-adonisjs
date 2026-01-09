@@ -44,9 +44,15 @@ export function pluginAdonisJS(app: ApplicationService, options?: { baseURL: str
     /**
      * Extend "@japa/api-client" plugin
      */
-    if ((await canImport('@japa/api-client')) && app.container.hasBinding('encryption')) {
+    if (
+      (await canImport('@japa/api-client')) &&
+      app.container.hasAllBindings(['encryption', 'router'])
+    ) {
       const { extendApiClient } = await import('./src/extend_api_client.js')
-      extendApiClient(new CookieClient(await app.container.make(Encryption)))
+      extendApiClient(
+        new CookieClient(await app.container.make(Encryption)),
+        await app.container.make('router')
+      )
     }
 
     /**
