@@ -15,6 +15,8 @@ import type {
   GetRoutesForMethod,
   RouteBuilderArguments,
 } from '@adonisjs/core/types/http'
+import { type AbstractConstructor } from '@adonisjs/core/types/common'
+import { type BindingResolver } from '@adonisjs/core/types/container'
 
 declare module '@japa/runner/core' {
   /**
@@ -24,6 +26,26 @@ declare module '@japa/runner/core' {
    * for route URL generation and REPL access during tests.
    */
   export interface TestContext {
+    /**
+     * Swap a container binding with a fake implementation for the
+     * duration of the test. The original binding is automatically
+     * restored after the test completes.
+     *
+     * @example
+     * ```ts
+     * test('sends welcome email', async ({ swap }) => {
+     *   swap(Mailer, new FakeMailer())
+     *
+     *   await userService.register({ email: 'joe@example.com' })
+     *   fakeMailer.assertSent('joe@example.com')
+     * })
+     * ```
+     */
+    swap<Binding extends AbstractConstructor<any>>(
+      binding: Binding,
+      fake: InstanceType<Binding> | BindingResolver<any, InstanceType<Binding>>
+    ): InstanceType<Binding>
+
     /**
      * Creates a URL for a pre-registered route using AdonisJS router.
      *
