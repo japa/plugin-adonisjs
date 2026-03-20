@@ -11,7 +11,7 @@ import { getActiveTest, test } from '@japa/runner'
 import type { ApplicationService } from '@adonisjs/core/types'
 import { Emitter, Refiner, Runner, Suite, Test, TestContext } from '@japa/runner/core'
 
-import { extendSwap } from '../src/swap.ts'
+import { extendSwap, useFake } from '../src/swap.ts'
 import { bootApplication } from '../tests_helpers/bootstrap.ts'
 
 class Mailer {
@@ -128,6 +128,19 @@ test.group('Swap', (group) => {
 
     const fake = swapMailer()
     const resolved = await app.container.make(Mailer)
+    assert.strictEqual(resolved, fake)
+
+    cleanup(() => app.container.restore(Mailer))
+  })
+
+  test('swap via useFake standalone helper', async ({ assert, cleanup }) => {
+    app.container.bind(Mailer, () => new Mailer())
+    extendSwap(app.container)
+
+    const fake = useFake(Mailer, new FakeMailer())
+    const resolved = await app.container.make(Mailer)
+
+    assert.instanceOf(fake, FakeMailer)
     assert.strictEqual(resolved, fake)
 
     cleanup(() => app.container.restore(Mailer))
