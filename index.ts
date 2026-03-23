@@ -13,6 +13,7 @@ import { CookieClient } from '@adonisjs/core/http'
 import { Encryption } from '@adonisjs/core/encryption'
 import type { ApplicationService } from '@adonisjs/core/types'
 
+import { extendSwap } from './src/swap.ts'
 import { extendContext } from './src/extend_context.ts'
 import { verifyPrompts } from './src/verify_prompts.ts'
 
@@ -37,6 +38,8 @@ async function canImport(pkg: string) {
  */
 export function pluginAdonisJS(app: ApplicationService, options?: { baseURL: string }) {
   const pluginFn: PluginFn = async function ({ runner }) {
+    extendSwap(app.container)
+
     if (app.container.hasAllBindings(['router', 'repl'])) {
       extendContext(await app.container.make('router'), await app.container.make('repl'))
     }

@@ -10,7 +10,8 @@
     "!build/tests_helpers"
   ],
   "exports": {
-    ".": "./build/index.js"
+    ".": "./build/index.js",
+    "./helpers": "./build/helpers.js"
   },
   "engines": {
     "node": ">=18.16.0"
@@ -95,7 +96,8 @@
   },
   "tsdown": {
     "entry": [
-      "./index.ts"
+      "./index.ts",
+      "./helpers.ts"
     ],
     "outDir": "./build",
     "clean": true,
